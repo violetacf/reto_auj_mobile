@@ -33,7 +33,50 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   void saveTask() {
     final title = _titleController.text.trim();
     final description = _descriptionController.text.trim();
-    if (title.isEmpty) return;
+
+    if (title.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Tarea sin título'),
+          content: const Text(
+            'No escribiste nada en la tarea, escribe algo antes de guardarlo',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    if (description.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('La descripción está vacía'),
+          content: const Text('¿Deseas guardar la tarea sin descripción?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                final task = Task(title: title, description: '');
+                Navigator.pop(context, task);
+              },
+              child: const Text('Guardar'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
 
     final task = Task(title: title, description: description);
     Navigator.pop(context, task);
