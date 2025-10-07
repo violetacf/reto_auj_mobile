@@ -30,15 +30,23 @@ Crear una app móvil sencilla de lista de tareas en Flutter, cumpliendo los requ
 ## Estructura de la app
 
 ```bash
+assets/
+├─ screenshots/
+│  ├─ add_task_light_mode.png
+│  ├─ home_light_mode.png
+│  ├─ home_dark_mode.png
+│  └─ incompleted_tasks_dark_mode.png
+└─ gifs/
+   └─ demo_todo_app.gif
 lib/
 ├─ main.dart
 ├─ models/
-│   └─ task.dart
+│  └─ task.dart
 ├─ screens/
-│   ├─ home_screen.dart
-│   └─ add_task_screen.dart
+│  ├─ home_screen.dart
+│  └─ add_task_screen.dart
 └─ widgets/
-    └─ task_tile.dart
+   └─ task_tile.dart
 ```
 - `main.dart`: Entry point de la app, llama a `HomeScreen`
 
@@ -82,6 +90,27 @@ flutter run -d <device_id_del_simulador>
 ```
 
 
-<!-- TODO: ## Capturas de pantalla -->
+## Capturas de pantalla y grabaciones de la App
 
+### GIFs
+<p align="center">
+  <img src="assets/gifs/demo_todo_app.gif" alt="Demo ToDo App" width="300"/>
+</p>
+<sub>Demostración rápida de la app ToDo mostrando añadir, completar y filtrar tareas.</sub>
+
+### Capturas de pantalla
+
+#### Light Mode
+<p align="center">
+  <img src="assets/screenshots/add_task_light_mode.png" alt="Añadir tarea - Light Mode" width="200"/>
+  <img src="assets/screenshots/home_light_mode.png" alt="Home - Light Mode" width="200"/>
+</p>
+<sub>Pantalla añadir tarea y lista principal en Light Mode.</sub>
+
+#### Dark Mode
+<p align="center">
+  <img src="assets/screenshots/home_dark_mode.png" alt="Home - Dark Mode" width="200"/>
+  <img src="assets/screenshots/incompleted_tasks_dark_mode.png" alt="Tareas incompletas - Dark Mode" width="200"/>
+</p>
+<sub>Lista principal y vista de tareas incompletas en Dark Mode.</sub>
 
