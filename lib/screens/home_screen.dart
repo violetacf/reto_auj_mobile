@@ -97,11 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: appBarIcon,
         actions: [
           PopupMenuButton<TaskFilter>(
-            onSelected: (filter) {
-              setState(() {
-                _filter = filter;
-              });
-            },
+            onSelected: (filter) => setState(() => _filter = filter),
             itemBuilder: (_) => const [
               PopupMenuItem(value: TaskFilter.all, child: Text('Todas')),
               PopupMenuItem(
@@ -141,11 +137,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     task: task,
                     onChanged: (value) => toggleTask(task, value),
                     onDelete: () => deleteTask(task),
+                    onEdit: () async {
+                      final editedTask = await Navigator.push<Task?>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => AddTaskScreen(task: task),
+                        ),
+                      );
+                      if (editedTask != null) {
+                        setState(() {
+                          final index = tasks.indexOf(task);
+                          tasks[index] = editedTask;
+                        });
+                        storage.saveTasks(tasks);
+                      }
+                    },
                   );
                 }).toList(),
               ),
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final newTask = await Navigator.push<Task?>(

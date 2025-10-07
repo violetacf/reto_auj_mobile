@@ -2,15 +2,26 @@ import 'package:flutter/material.dart';
 import '../models/task.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({super.key});
+  final Task? task;
+
+  const AddTaskScreen({super.key, this.task});
 
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
+  late final TextEditingController _titleController;
+  late final TextEditingController _descriptionController;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController(text: widget.task?.title ?? '');
+    _descriptionController = TextEditingController(
+      text: widget.task?.description ?? '',
+    );
+  }
 
   @override
   void dispose() {
@@ -22,7 +33,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   void saveTask() {
     final title = _titleController.text.trim();
     final description = _descriptionController.text.trim();
-
     if (title.isEmpty) return;
 
     final task = Task(title: title, description: description);
@@ -32,7 +42,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Nueva tarea')),
+      appBar: AppBar(
+        title: Text(widget.task == null ? 'Nueva tarea' : 'Editar tarea'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

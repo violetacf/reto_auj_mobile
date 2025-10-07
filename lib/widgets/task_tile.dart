@@ -6,12 +6,14 @@ class TaskTile extends StatelessWidget {
   final Task task;
   final Function(bool?) onChanged;
   final VoidCallback onDelete;
+  final VoidCallback? onEdit;
 
   const TaskTile({
     super.key,
     required this.task,
     required this.onChanged,
     required this.onDelete,
+    this.onEdit,
   });
 
   void _confirmDelete(BuildContext context) {
@@ -84,6 +86,11 @@ class TaskTile extends StatelessWidget {
                 onChanged: onChanged,
                 activeColor: primary,
               ),
+              if (onEdit != null)
+                IconButton(
+                  icon: const Icon(Icons.edit, color: primary),
+                  onPressed: onEdit,
+                ),
               IconButton(
                 icon: const Icon(Icons.delete, color: error),
                 onPressed: () => _confirmDelete(context),

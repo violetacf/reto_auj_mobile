@@ -13,6 +13,7 @@ Crear una app móvil sencilla de lista de tareas en Flutter, cumpliendo los requ
 - Persistencia local usando `SharedPreferences`
 - Eliminar tareas con confirmación
 - Añadir filtro de tareas 
+- Añadir edición de tareas
 <!-- - Diseño básico pero cuidado -->
 
 ## Plan de desarrollo paso a paso
