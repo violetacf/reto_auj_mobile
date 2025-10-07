@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/task.dart';
+import '../theme/colors.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
@@ -44,15 +45,23 @@ class TaskTile extends StatelessWidget {
         task.title,
         style: TextStyle(
           decoration: task.isDone ? TextDecoration.lineThrough : null,
+          color: text,
         ),
       ),
-      subtitle: Text(task.description),
+      subtitle: Text(
+        task.description,
+        style: const TextStyle(color: secondaryText),
+      ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Checkbox(value: task.isDone, onChanged: onChanged),
+          Checkbox(
+            value: task.isDone,
+            onChanged: onChanged,
+            activeColor: primary,
+          ),
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.delete, color: Colors.red),
             onPressed: () => _confirmDelete(context),
           ),
         ],
