@@ -3,16 +3,16 @@
 ## Objetivo
 Crear una app móvil sencilla de lista de tareas en Flutter, cumpliendo los requisitos del reto previo de Adopta un Junior.
 
-## Requisitos implementados (planificados)
+## Requisitos implementados
 - Pantalla de lista de tareas (ToDo)
 - Añadir nueva tarea (título + descripción)
 - Mostrar tareas en una lista
 - Marcar tareas como completadas
 
-## Extras planeados
+## Extras implementados
 - Persistencia local usando `SharedPreferences`
 - Eliminar tareas con confirmación
-
+- Añadir filtro de tareas 
 <!-- - Diseño básico pero cuidado -->
 
 ## Plan de desarrollo paso a paso

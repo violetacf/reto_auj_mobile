@@ -4,6 +4,8 @@ import '../widgets/task_tile.dart';
 import '../services/storage_service.dart';
 import 'add_task_screen.dart';
 
+enum TaskFilter { all, completed, incomplete }
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<Task> tasks = [];
   final StorageService storage = StorageService();
+  TaskFilter _filter = TaskFilter.all;
 
   @override
   void initState() {
@@ -49,12 +52,46 @@ class _HomeScreenState extends State<HomeScreen> {
     storage.saveTasks(tasks);
   }
 
+  List<Task> get filteredTasks {
+    switch (_filter) {
+      case TaskFilter.completed:
+        return tasks.where((t) => t.isDone).toList();
+      case TaskFilter.incomplete:
+        return tasks.where((t) => !t.isDone).toList();
+      case TaskFilter.all:
+      default:
+        return tasks;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ToDo App')),
+      appBar: AppBar(
+        title: const Text('ToDo App'),
+        actions: [
+          PopupMenuButton<TaskFilter>(
+            onSelected: (filter) {
+              setState(() {
+                _filter = filter;
+              });
+            },
+            itemBuilder: (_) => const [
+              PopupMenuItem(value: TaskFilter.all, child: Text('Todas')),
+              PopupMenuItem(
+                value: TaskFilter.completed,
+                child: Text('Completadas'),
+              ),
+              PopupMenuItem(
+                value: TaskFilter.incomplete,
+                child: Text('Incompletas'),
+              ),
+            ],
+          ),
+        ],
+      ),
       body: ListView(
-        children: tasks.map((task) {
+        children: filteredTasks.map((task) {
           return TaskTile(
             task: task,
             onChanged: (value) => toggleTask(task, value),
