@@ -14,7 +14,8 @@ Crear una app móvil sencilla de lista de tareas en Flutter, cumpliendo los requ
 - Eliminar tareas con confirmación
 - Añadir filtro de tareas 
 - Añadir edición de tareas
-<!-- - Diseño básico pero cuidado -->
+- Diseño básico pero cuidado
+- Añadir dark/light mode
 
 ## Plan de desarrollo paso a paso
 1. Crear el modelo `Task` con título, descripción y estado de completada.

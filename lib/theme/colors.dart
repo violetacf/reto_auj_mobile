@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ===== Light theme =====
 const Color primary = Color(0xFF6A0DAD);
 const Color primaryLight = Color(0xFFB266EB);
 const Color primaryDark = Color(0xFF5618B3);
@@ -21,3 +22,14 @@ const MaterialColor primarySwatch = MaterialColor(0xFF6A0DAD, <int, Color>{
   800: Color(0xFF5618B3),
   900: Color(0xFF3C0E80),
 });
+
+// ===== Dark theme =====
+const Color backgroundDark = Color(0xFF0D0D0D);
+const Color textDark =
+    Colors.white70;
+const Color secondaryTextDark = Colors.white38;
+const Color errorDark = Color(0xFFD32F2F);
+const Color primaryDarkMode = Color(0xFF7B1FA2);
+const Color primaryLightDarkMode = Color(
+  0xFF9C27B0,
+);

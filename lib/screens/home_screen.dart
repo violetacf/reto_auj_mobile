@@ -8,7 +8,14 @@ import '../theme/colors.dart';
 enum TaskFilter { all, completed, incomplete }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback toggleTheme;
+  final bool isDarkMode;
+
+  const HomeScreen({
+    super.key,
+    required this.toggleTheme,
+    required this.isDarkMode,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -96,6 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(appBarTitle),
         leading: appBarIcon,
         actions: [
+          // Icono para cambiar tema
+          IconButton(
+            icon: Icon(
+              widget.isDarkMode ? Icons.wb_sunny : Icons.nightlight_round,
+            ),
+            onPressed: widget.toggleTheme,
+          ),
+          // Popup para filtros
           PopupMenuButton<TaskFilter>(
             onSelected: (filter) => setState(() => _filter = filter),
             itemBuilder: (_) => const [
@@ -115,7 +130,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [primaryLight.withOpacity(0.3), background],
+            colors: [
+              primaryLight.withOpacity(0.3),
+              widget.isDarkMode ? backgroundDark : background,
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -128,7 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       : _filter == TaskFilter.completed
                       ? 'No tienes tareas completadas'
                       : 'No tienes tareas incompletas',
-                  style: TextStyle(fontSize: 18, color: text.withOpacity(0.7)),
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: widget.isDarkMode
+                        ? textDark.withOpacity(0.7)
+                        : text.withOpacity(0.7),
+                  ),
                 ),
               )
             : ListView(
