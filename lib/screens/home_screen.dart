@@ -42,6 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
     storage.saveTasks(tasks);
   }
 
+  void deleteTask(Task task) {
+    setState(() {
+      tasks.remove(task);
+    });
+    storage.saveTasks(tasks);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return TaskTile(
             task: task,
             onChanged: (value) => toggleTask(task, value),
+            onDelete: () => deleteTask(task),
           );
         }).toList(),
       ),
