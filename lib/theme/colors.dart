@@ -1,3 +1,5 @@
+// Feedback de colors.dart
+
 import 'package:flutter/material.dart';
 
 // ===== Light theme =====

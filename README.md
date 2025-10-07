@@ -1,3 +1,4 @@
+<!-- Feedback de README.md -->
 # Reto Mobile – ToDo App
 
 ## Objetivo
@@ -48,6 +49,7 @@ lib/
 └─ widgets/
    └─ task_tile.dart
 ```
+
 - `main.dart`: Entry point de la app, llama a `HomeScreen`
 
 - `models/task.dart`: Modelo Task con título, descripción y estado `isDone`
