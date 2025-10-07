@@ -1,3 +1,4 @@
+<!-- Feedback de README.md -->
 # Reto Mobile – ToDo App
 
 ## Objetivo
