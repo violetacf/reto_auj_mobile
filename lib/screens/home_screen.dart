@@ -64,11 +64,23 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  String get appBarTitle {
+    switch (_filter) {
+      case TaskFilter.completed:
+        return 'Tareas completadas';
+      case TaskFilter.incomplete:
+        return 'Tareas incompletas';
+      case TaskFilter.all:
+      default:
+        return 'Todas las tareas';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ToDo App'),
+        title: Text(appBarTitle),
         actions: [
           PopupMenuButton<TaskFilter>(
             onSelected: (filter) {
@@ -90,15 +102,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: ListView(
-        children: filteredTasks.map((task) {
-          return TaskTile(
-            task: task,
-            onChanged: (value) => toggleTask(task, value),
-            onDelete: () => deleteTask(task),
-          );
-        }).toList(),
-      ),
+      body: filteredTasks.isEmpty
+          ? Center(
+              child: Text(
+                _filter == TaskFilter.all
+                    ? 'No tienes tareas'
+                    : _filter == TaskFilter.completed
+                    ? 'No tienes tareas completadas'
+                    : 'No tienes tareas incompletas',
+                style: const TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            )
+          : ListView(
+              children: filteredTasks.map((task) {
+                return TaskTile(
+                  task: task,
+                  onChanged: (value) => toggleTask(task, value),
+                  onDelete: () => deleteTask(task),
+                );
+              }).toList(),
+            ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final newTask = await Navigator.push<Task?>(
