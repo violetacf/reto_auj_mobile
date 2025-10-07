@@ -25,23 +25,25 @@ Crear una app móvil sencilla de lista de tareas en Flutter, cumpliendo los requ
 ## Estructura de la app
 
 ```bash
-HomeScreen
- ├─ AppBar
- ├─ ListView (lista de tareas)
- │   └─ TaskTile (cada tarea)
- └─ FloatingActionButton (añadir tarea)
-      └─ AddTaskScreen
-          ├─ TextField (título)
-          ├─ TextField (descripción)
-          └─ ElevatedButton (guardar tarea)
+lib/
+├─ main.dart
+├─ models/
+│   └─ task.dart
+├─ screens/
+│   ├─ home_screen.dart
+│   └─ add_task_screen.dart
+└─ widgets/
+    └─ task_tile.dart
 ```
-- `HomeScreen`: Pantalla principal donde se muestran todas las tareas.
+- `main.dart`: Entry point de la app, llama a `HomeScreen`
 
-- `ListView` + `TaskTile`: Cada tarea se muestra en un widget TaskTile, con título, descripción y checkbox para marcar como completada.
+- `models/task.dart`: Modelo Task con título, descripción y estado `isDone`
 
-- `FloatingActionButton`: Botón flotante para abrir la pantalla de añadir tarea (`AddTaskScreen`).
+- `screens/home_screen.dart`: Pantalla principal que muestra la lista de tareas y botón para añadir nuevas
 
-- `AddTaskScreen`: Pantalla con campos para título y descripción, y botón para guardar la tarea en la lista.
+- `screens/add_task_screen.dart`: Pantalla para añadir una nueva tarea
+
+- `widgets/task_tile.dart`: Widget que representa cada tarea en la lista con título, descripción y checkbox
 
 ## Cómo ejecutar la app
 1. Clonar el repositorio:
