@@ -7,8 +7,8 @@ const Color primaryDark = Color(0xFF5618B3);
 const Color background = Color(0xFFF5F5F5);
 const Color text = Colors.black87;
 const Color secondaryText = Colors.black54;
+const Color error = Color(0xFFE53935);
 
-// Para widgets que usan MaterialColor (por ejemplo ThemeData.primarySwatch)
 const MaterialColor primarySwatch = MaterialColor(0xFF6A0DAD, <int, Color>{
   50: Color(0xFFF2E5FA),
   100: Color(0xFFE0BFF5),

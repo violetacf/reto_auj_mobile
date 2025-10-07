@@ -3,6 +3,7 @@ import '../models/task.dart';
 import '../widgets/task_tile.dart';
 import '../services/storage_service.dart';
 import 'add_task_screen.dart';
+import '../theme/colors.dart';
 
 enum TaskFilter { all, completed, incomplete }
 
@@ -76,11 +77,24 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Icon get appBarIcon {
+    switch (_filter) {
+      case TaskFilter.completed:
+        return const Icon(Icons.check_circle);
+      case TaskFilter.incomplete:
+        return const Icon(Icons.pending_actions);
+      case TaskFilter.all:
+      default:
+        return const Icon(Icons.list);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(appBarTitle),
+        leading: appBarIcon,
         actions: [
           PopupMenuButton<TaskFilter>(
             onSelected: (filter) {
@@ -102,26 +116,35 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: filteredTasks.isEmpty
-          ? Center(
-              child: Text(
-                _filter == TaskFilter.all
-                    ? 'No tienes tareas'
-                    : _filter == TaskFilter.completed
-                    ? 'No tienes tareas completadas'
-                    : 'No tienes tareas incompletas',
-                style: const TextStyle(fontSize: 18, color: Colors.grey),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [primaryLight.withOpacity(0.3), background],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: filteredTasks.isEmpty
+            ? Center(
+                child: Text(
+                  _filter == TaskFilter.all
+                      ? 'No tienes tareas'
+                      : _filter == TaskFilter.completed
+                      ? 'No tienes tareas completadas'
+                      : 'No tienes tareas incompletas',
+                  style: TextStyle(fontSize: 18, color: text.withOpacity(0.7)),
+                ),
+              )
+            : ListView(
+                children: filteredTasks.map((task) {
+                  return TaskTile(
+                    task: task,
+                    onChanged: (value) => toggleTask(task, value),
+                    onDelete: () => deleteTask(task),
+                  );
+                }).toList(),
               ),
-            )
-          : ListView(
-              children: filteredTasks.map((task) {
-                return TaskTile(
-                  task: task,
-                  onChanged: (value) => toggleTask(task, value),
-                  onDelete: () => deleteTask(task),
-                );
-              }).toList(),
-            ),
+      ),
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -131,7 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
           );
           if (newTask != null) addTask(newTask);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, size: 32),
+        elevation: 8,
       ),
     );
   }

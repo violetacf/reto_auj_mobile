@@ -31,7 +31,7 @@ class TaskTile extends StatelessWidget {
               onDelete();
               Navigator.of(ctx).pop();
             },
-            child: const Text('Eliminar', style: TextStyle(color: Colors.red)),
+            child: const Text('Eliminar', style: TextStyle(color: error)),
           ),
         ],
       ),
@@ -40,31 +40,57 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        task.title,
-        style: TextStyle(
-          decoration: task.isDone ? TextDecoration.lineThrough : null,
-          color: text,
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 3,
+        color: task.isDone ? Colors.grey[200] : Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      task.title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        decoration: task.isDone
+                            ? TextDecoration.lineThrough
+                            : null,
+                        color: text,
+                      ),
+                    ),
+                    if (task.description.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          task.description,
+                          style: const TextStyle(
+                            color: secondaryText,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              Checkbox(
+                value: task.isDone,
+                onChanged: onChanged,
+                activeColor: primary,
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete, color: error),
+                onPressed: () => _confirmDelete(context),
+              ),
+            ],
+          ),
         ),
-      ),
-      subtitle: Text(
-        task.description,
-        style: const TextStyle(color: secondaryText),
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Checkbox(
-            value: task.isDone,
-            onChanged: onChanged,
-            activeColor: primary,
-          ),
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: () => _confirmDelete(context),
-          ),
-        ],
       ),
     );
   }
