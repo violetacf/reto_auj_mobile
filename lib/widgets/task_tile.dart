@@ -47,7 +47,7 @@ class TaskTile extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         elevation: 3,
-        color: task.isDone ? Colors.grey[200] : Colors.white,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
@@ -73,7 +73,7 @@ class TaskTile extends StatelessWidget {
                         child: Text(
                           task.description,
                           style: const TextStyle(
-                            color: secondaryText,
+                            color: Colors.black54,
                             fontSize: 14,
                           ),
                         ),
@@ -85,6 +85,7 @@ class TaskTile extends StatelessWidget {
                 value: task.isDone,
                 onChanged: onChanged,
                 activeColor: primary,
+                checkColor: Colors.white,
               ),
               if (onEdit != null)
                 IconButton(

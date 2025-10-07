@@ -101,27 +101,58 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(appBarTitle),
-        leading: appBarIcon,
         actions: [
-          // Icono para cambiar tema
           IconButton(
             icon: Icon(
               widget.isDarkMode ? Icons.wb_sunny : Icons.nightlight_round,
             ),
             onPressed: widget.toggleTheme,
           ),
-          // Popup para filtros
           PopupMenuButton<TaskFilter>(
+            icon: appBarIcon,
             onSelected: (filter) => setState(() => _filter = filter),
-            itemBuilder: (_) => const [
-              PopupMenuItem(value: TaskFilter.all, child: Text('Todas')),
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                value: TaskFilter.all,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.list,
+                      size: 20,
+                      color: widget.isDarkMode ? Colors.white : text,
+                    ),
+                    const SizedBox(width: 8),
+                    Text('Todas'),
+                  ],
+                ),
+              ),
               PopupMenuItem(
                 value: TaskFilter.completed,
-                child: Text('Completadas'),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.check_circle,
+                      size: 20,
+                      color: widget.isDarkMode ? Colors.white : text,
+                    ),
+                    const SizedBox(width: 8),
+                    Text('Completadas'),
+                  ],
+                ),
               ),
               PopupMenuItem(
                 value: TaskFilter.incomplete,
-                child: Text('Incompletas'),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.pending_actions,
+                      size: 20,
+                      color: widget.isDarkMode ? Colors.white : text,
+                    ),
+                    const SizedBox(width: 8),
+                    Text('Incompletas'),
+                  ],
+                ),
               ),
             ],
           ),
